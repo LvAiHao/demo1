@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.lv.mapper.BookMapper">
+
+    <select id="selectAll" resultType="com.lv.pojo.Book">
+
+        select * from book
+
+    </select>
+
+    <select id="selectByPage" resultType="com.lv.pojo.Book" parameterType="com.lv.pojo.Book">
+
+        select * from book
+
+        <where>
+            <if test="title!=null and title!=''">
+                and title like concat('%',#{title},'%')
+            </if>
+            <if test="author!=null and author!='' ">
+                and author like concat('%',#{author},'%')
+            </if>
+        </where>
+
+    </select>
+
+    <delete id="delete" parameterType="int">
+        delete from book where id=#{id}
+    </delete>
+
+    <update id="update" parameterType="com.lv.pojo.Book">
+        update book set(title,author,price,publishdate)value
+        (#{title},#{author},#{price},#{publishdate})where id=#{id}
+    </update>
+
+
+
+
+</mapper>
